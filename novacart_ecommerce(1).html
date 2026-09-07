@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NovaCart - modern online shopping experience">
+  <title>NovaCart | Modern E-Commerce</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#6c4cff;--primary-dark:#5134d8;--dark:#171528;--muted:#747080;--bg:#f7f7fb;--white:#fff;--border:#e9e7f0}
+    body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--dark);line-height:1.5}
+    a{text-decoration:none;color:inherit}
+    button,input{font:inherit}
+    button{cursor:pointer;border:0}
+    .topbar{background:var(--dark);color:#fff;text-align:center;padding:9px;font-size:13px}
+    header{background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--border)}
+    .nav{max-width:1200px;margin:auto;height:72px;padding:0 22px;display:flex;align-items:center;gap:28px}
+    .logo{font-size:25px;font-weight:800;letter-spacing:-1px}.logo span{color:var(--primary)}
+    .search{flex:1;position:relative}.search input{width:100%;padding:13px 18px;border:1px solid var(--border);border-radius:14px;outline:0;background:#faf9fd}.search input:focus{border-color:var(--primary)}
+    .nav-actions{display:flex;gap:10px;align-items:center}.icon-btn{width:42px;height:42px;background:#f4f2fa;border-radius:12px;position:relative}
+    .badge{position:absolute;top:-4px;right:-4px;background:var(--primary);color:#fff;border-radius:20px;min-width:18px;height:18px;font-size:11px;display:grid;place-items:center}
+    main{max-width:1200px;margin:auto;padding:28px 22px 70px}
+    .hero{min-height:350px;border-radius:26px;padding:55px;display:flex;align-items:center;overflow:hidden;position:relative;background:linear-gradient(120deg,#e9e5ff,#f9f7ff 58%,#e5dcff)}
+    .hero:after{content:"";position:absolute;width:330px;height:330px;border-radius:50%;background:rgba(108,76,255,.12);right:8%;top:10px}
+    .hero-content{max-width:600px;position:relative;z-index:2}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800;color:var(--primary)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-3px;margin:10px 0 18px}.hero p{color:#625d72;font-size:17px;max-width:500px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:12px;font-weight:700;margin-top:25px}
+    .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;margin:48px 0 20px}.section-head h2{font-size:28px;letter-spacing:-1px}.section-head p{color:var(--muted)}
+    .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.category{padding:25px;background:#fff;border:1px solid var(--border);border-radius:18px;font-weight:750;transition:.2s}.category:hover{transform:translateY(-3px);border-color:#cfc7ff}.category small{display:block;color:var(--muted);font-weight:500;margin-top:4px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.filter{background:#fff;border:1px solid var(--border);padding:9px 14px;border-radius:10px}.filter.active{background:var(--dark);color:#fff}
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;position:relative}.product-image{height:230px;background:#eee;display:grid;place-items:center;font-size:70px}.heart{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;background:#fff;font-size:18px}.card-body{padding:16px}.category-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.card h3{font-size:16px;margin:5px 0}.rating{font-size:13px;color:#a36b00}.price{font-size:19px;font-weight:800;margin-top:9px}.old{font-size:13px;color:#aaa;text-decoration:line-through;margin-left:5px;font-weight:500}.add{width:100%;margin-top:12px;padding:11px;border-radius:10px;background:#f0edff;color:var(--primary);font-weight:750}.add:hover{background:var(--primary);color:#fff}
+    .newsletter{margin-top:55px;background:var(--dark);color:#fff;border-radius:22px;padding:38px;display:flex;justify-content:space-between;align-items:center;gap:25px}.newsletter p{color:#bbb7c9;margin-top:5px}.news-form{display:flex;gap:8px}.news-form input{padding:13px 15px;border-radius:10px;border:0;min-width:230px}.news-form button{padding:13px 18px;border-radius:10px;background:var(--primary);color:#fff;font-weight:700}
+    footer{background:#fff;border-top:1px solid var(--border);padding:28px 22px;color:var(--muted)}.footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between}
+    .overlay{position:fixed;inset:0;background:rgba(10,8,20,.45);z-index:30;display:none}.overlay.show{display:block}.cart{position:absolute;right:0;top:0;width:min(420px,100%);height:100%;background:#fff;padding:25px;display:flex;flex-direction:column}.cart-head{display:flex;justify-content:space-between;align-items:center}.close{background:#f2f0f6;width:36px;height:36px;border-radius:9px}.cart-items{flex:1;overflow:auto;margin:20px 0}.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}.cart-thumb{width:58px;height:58px;background:#eee;border-radius:10px;display:grid;place-items:center;font-size:28px}.cart-item strong{display:block}.qty{display:flex;align-items:center;gap:10px;margin-top:7px}.qty button{width:25px;height:25px;border-radius:6px;background:#eee}.total{border-top:1px solid var(--border);padding-top:18px;display:flex;justify-content:space-between;font-size:20px;font-weight:800}
+    .empty{text-align:center;color:var(--muted);padding:50px 10px}
+    @media(max-width:850px){.products{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(2,1fr)}.nav{gap:12px}.search{order:3;flex-basis:100%}.nav{height:auto;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}.hero{padding:35px 25px}.newsletter{flex-direction:column;align-items:flex-start}}
+    @media(max-width:520px){.products{grid-template-columns:1fr}.hero{min-height:310px}h1{letter-spacing:-2px}.categories{grid-template-columns:1fr 1fr}.newsletter{padding:25px}.news-form{width:100%;flex-direction:column}.news-form input{min-width:0;width:100%}.footer-inner{flex-direction:column;gap:10px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">Free shipping on orders over $50 • Easy 30-day returns</div>
+  <header>
+    <nav class="nav">
+      <a class="logo" href="#">Nova<span>Cart</span></a>
+      <div class="search"><input id="search" type="search" placeholder="Search products..." oninput="renderProducts()"></div>
+      <div class="nav-actions">
+        <button class="icon-btn" title="Wishlist">♡</button>
+        <button class="icon-btn" title="Cart" onclick="openCart()">🛒<span class="badge" id="cartCount">0</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">New season collection</div>
+        <h1>Shop what inspires you.</h1>
+        <p>Discover thoughtfully selected fashion, tech, home essentials and everyday favorites—all in one place.</p>
+        <a class="btn btn-primary" href="#products">Shop now →</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><div><h2>Browse categories</h2><p>Find your next favorite</p></div></div>
+      <div class="categories">
+        <button class="category" onclick="setCategory('Fashion')">👕 Fashion<small>24 products</small></button>
+        <button class="category" onclick="setCategory('Tech')">💻 Tech<small>18 products</small></button>
+        <button class="category" onclick="setCategory('Home')">🏠 Home<small>31 products</small></button>
+        <button class="category" onclick="setCategory('Beauty')">✨ Beauty<small>16 products</small></button>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="section-head"><div><h2>Featured products</h2><p id="resultText">Popular picks for you</p></div></div>
+      <div class="filters">
+        <button class="filter active" onclick="setCategory('All')">All</button>
+        <button class="filter" onclick="setCategory('Fashion')">Fashion</button>
+        <button class="filter" onclick="setCategory('Tech')">Tech</button>
+        <button class="filter" onclick="setCategory('Home')">Home</button>
+        <button class="filter" onclick="setCategory('Beauty')">Beauty</button>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section class="newsletter">
+      <div><h2>Get 10% off your first order</h2><p>Join our newsletter for new arrivals and special offers.</p></div>
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');"><input type="email" required placeholder="Your email address"><button>Subscribe</button></form>
+    </section>
+  </main>
+
+  <footer><div class="footer-inner"><div><strong>NovaCart</strong> — modern shopping made simple.</div><div>© 2026 NovaCart. All rights reserved.</div></div></footer>
+
+  <div class="overlay" id="overlay" onclick="if(event.target===this) closeCart()">
+    <aside class="cart">
+      <div class="cart-head"><h2>Your cart</h2><button class="close" onclick="closeCart()">✕</button></div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="btn btn-primary" style="width:100%" onclick="checkout()">Checkout</button>
+    </aside>
+  </div>
+
+<script>
+const products=[
+ {id:1,name:"Minimal Everyday Hoodie",cat:"Fashion",price:54.99,old:69.99,icon:"🧥"},
+ {id:2,name:"Urban Runner Sneakers",cat:"Fashion",price:79.99,old:99.99,icon:"👟"},
+ {id:3,name:"Wireless Noise-Canceling Headphones",cat:"Tech",price:129.99,old:159.99,icon:"🎧"},
+ {id:4,name:"Smart Desk Lamp",cat:"Home",price:42.50,old:null,icon:"💡"},
+ {id:5,name:"Mechanical Keyboard",cat:"Tech",price:89.99,old:null,icon:"⌨️"},
+ {id:6,name:"Ceramic Coffee Set",cat:"Home",price:36.00,old:45.00,icon:"☕"},
+ {id:7,name:"Everyday Skincare Set",cat:"Beauty",price:49.99,old:null,icon:"🧴"},
+ {id:8,name:"Classic Leather Backpack",cat:"Fashion",price:94.99,old:119.99,icon:"🎒"}
+];
+let category="All", cart=[];
+
+function setCategory(c){category=c; document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.textContent.trim()===c)); renderProducts();}
+function renderProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=products.filter(p=>(category==="All"||p.cat===category)&&p.name.toLowerCase().includes(q));
+ document.getElementById("resultText").textContent=list.length+" product"+(list.length!==1?"s":"")+" found";
+ document.getElementById("productGrid").innerHTML=list.length?list.map(p=>`
+  <article class="card">
+   <button class="heart" onclick="this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+   <div class="product-image">${p.icon}</div>
+   <div class="card-body"><div class="category-label">${p.cat}</div><h3>${p.name}</h3><div class="rating">★★★★★ <span style="color:#aaa">(4.8)</span></div>
+   <div class="price">$${p.price.toFixed(2)} ${p.old?`<span class="old">$${p.old.toFixed(2)}</span>`:""}</div>
+   <button class="add" onclick="addToCart(${p.id})">Add to cart</button></div>
+  </article>`).join(""):`<div class="empty" style="grid-column:1/-1">No products match your search.</div>`;
+}
+function addToCart(id){const item=cart.find(x=>x.id===id);item?item.qty++:cart.push({id,qty:1});updateCart();openCart();}
+function updateCart(){
+ document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);
+ const box=document.getElementById("cartItems");
+ if(!cart.length){box.innerHTML='<div class="empty">Your cart is empty.<br>Add something you love.</div>';}
+ else box.innerHTML=cart.map(x=>{const p=products.find(y=>y.id===x.id);return `<div class="cart-item"><div class="cart-thumb">${p.icon}</div><div style="flex:1"><strong>${p.name}</strong><small>$${p.price.toFixed(2)} each</small><div class="qty"><button onclick="changeQty(${p.id},-1)">−</button>${x.qty}<button onclick="changeQty(${p.id},1)">+</button><button onclick="removeItem(${p.id})" style="margin-left:auto">Remove</button></div></div></div>`}).join("");
+ document.getElementById("cartTotal").textContent="$"+cart.reduce((a,x)=>a+products.find(p=>p.id===x.id).price*x.qty,0).toFixed(2);
+}
+function changeQty(id,n){const x=cart.find(i=>i.id===id);x.qty+=n;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);updateCart();}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);updateCart();}
+function openCart(){document.getElementById("overlay").classList.add("show");updateCart();}
+function closeCart(){document.getElementById("overlay").classList.remove("show");}
+function checkout(){if(!cart.length)return alert("Your cart is empty.");alert("Checkout demo — connect this button to your payment system.");}
+renderProducts(); updateCart();
+</script>
+</body>
+</html>
